@@ -82,18 +82,11 @@ export function Header() {
       <div className="flex h-16 items-center justify-between px-4">
         <div className="flex items-center gap-2">
           <SidebarTrigger />
-        </div>
-
-        {/* Logo centralizado */}
-        <div className="absolute left-1/2 transform -translate-x-1/2 flex items-center">
           <img 
             src="/logo.svg" 
             alt="Kryzon CTF" 
-            className="h-8 w-8"
+            className="h-10 w-10 ml-2"
           />
-          <span className="ml-2 text-xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-            Kryzon
-          </span>
         </div>
 
         <div className="flex items-center gap-4">
