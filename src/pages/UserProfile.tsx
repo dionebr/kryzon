@@ -134,14 +134,13 @@ export default function UserProfile() {
       </Card>
 
       {/* Tabs for own profile */}
-      {isOwnProfile ? (
+        {isOwnProfile ? (
         <Tabs defaultValue="perfil" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-2">
+          <TabsList className="grid w-full grid-cols-3">
             <TabsTrigger value="perfil">Meu Perfil</TabsTrigger>
             <TabsTrigger value="maquinas">Minhas Máquinas</TabsTrigger>
-          </TabsList>
-          
-          <TabsContent value="perfil" className="space-y-6">
+            <TabsTrigger value="submissoes">Minhas Submissões</TabsTrigger>
+          </TabsList>          <TabsContent value="perfil" className="space-y-6">
             {/* Profile Content */}
             <div className="grid gap-6 lg:grid-cols-3">
               {/* Left Column */}
@@ -433,6 +432,35 @@ export default function UserProfile() {
                       </Button>
                     </div>
                   )}
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="submissoes" className="space-y-6">
+            {/* Minhas Submissões */}
+            <Card className="gradient-card border-border">
+              <CardHeader>
+                <div className="flex items-center justify-between">
+                  <CardTitle className="flex items-center gap-2">
+                    <Trophy className="w-5 h-5 text-primary" />
+                    Minhas Submissões
+                  </CardTitle>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  {/* Lista de submissões será carregada do banco */}
+                  <div className="text-center py-12">
+                    <Trophy className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
+                    <h3 className="text-lg font-semibold mb-2">Nenhuma submissão ainda</h3>
+                    <p className="text-muted-foreground mb-4">
+                      Comece resolvendo máquinas para ver suas submissões aqui
+                    </p>
+                    <Button onClick={() => navigate('/machines')}>
+                      Ver Máquinas Disponíveis
+                    </Button>
+                  </div>
                 </div>
               </CardContent>
             </Card>
