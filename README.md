@@ -66,6 +66,14 @@ VITE_SUPABASE_PUBLISHABLE_KEY=your_supabase_anon_key
 VITE_SUPABASE_PROJECT_ID=your_project_id
 ```
 
+### Database Setup
+
+After configuring environment variables, set up the database:
+
+1. Follow instructions in [DATABASE_SETUP.md](DATABASE_SETUP.md)
+2. Run the SQL migration in your Supabase dashboard
+3. Create your admin user account
+
 ## Development
 
 ### Available Scripts

@@ -7,14 +7,303 @@ export type Json =
   | Json[]
 
 export type Database = {
-  // Allows to automatically instantiate createClient with right options
-  // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
-  __InternalSupabase: {
-    PostgrestVersion: "13.0.5"
-  }
   public: {
     Tables: {
-      [_ in never]: never
+      flags: {
+        Row: {
+          id: string
+          machine_id: string
+          name: string
+          description: string | null
+          flag_value: string
+          flag_type: Database["public"]["Enums"]["flag_type"]
+          regex_pattern: string | null
+          xp_value: number
+          is_final_flag: boolean
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          machine_id: string
+          name: string
+          description?: string | null
+          flag_value: string
+          flag_type?: Database["public"]["Enums"]["flag_type"]
+          regex_pattern?: string | null
+          xp_value?: number
+          is_final_flag?: boolean
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          machine_id?: string
+          name?: string
+          description?: string | null
+          flag_value?: string
+          flag_type?: Database["public"]["Enums"]["flag_type"]
+          regex_pattern?: string | null
+          xp_value?: number
+          is_final_flag?: boolean
+          created_at?: string
+        }
+      }
+      machine_files: {
+        Row: {
+          id: string
+          machine_id: string
+          filename: string
+          file_url: string
+          file_size: number | null
+          file_type: string | null
+          description: string | null
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          machine_id: string
+          filename: string
+          file_url: string
+          file_size?: number | null
+          file_type?: string | null
+          description?: string | null
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          machine_id?: string
+          filename?: string
+          file_url?: string
+          file_size?: number | null
+          file_type?: string | null
+          description?: string | null
+          created_at?: string
+        }
+      }
+      machine_instances: {
+        Row: {
+          id: string
+          machine_id: string
+          user_id: string
+          instance_url: string | null
+          ssh_config: Json | null
+          status: string
+          expires_at: string
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          machine_id: string
+          user_id: string
+          instance_url?: string | null
+          ssh_config?: Json | null
+          status?: string
+          expires_at: string
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          machine_id?: string
+          user_id?: string
+          instance_url?: string | null
+          ssh_config?: Json | null
+          status?: string
+          expires_at?: string
+          created_at?: string
+        }
+      }
+      machines: {
+        Row: {
+          id: string
+          name: string
+          description: string
+          creator_id: string
+          difficulty: Database["public"]["Enums"]["machine_difficulty"]
+          category: Database["public"]["Enums"]["machine_category"]
+          status: Database["public"]["Enums"]["machine_status"]
+          xp_reward: number
+          vm_url: string | null
+          docker_image: string | null
+          instance_config: Json | null
+          solve_count: number
+          first_blood_user_id: string | null
+          first_blood_at: string | null
+          approved_by: string | null
+          approved_at: string | null
+          rejection_reason: string | null
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          name: string
+          description: string
+          creator_id: string
+          difficulty: Database["public"]["Enums"]["machine_difficulty"]
+          category: Database["public"]["Enums"]["machine_category"]
+          status?: Database["public"]["Enums"]["machine_status"]
+          xp_reward?: number
+          vm_url?: string | null
+          docker_image?: string | null
+          instance_config?: Json | null
+          solve_count?: number
+          first_blood_user_id?: string | null
+          first_blood_at?: string | null
+          approved_by?: string | null
+          approved_at?: string | null
+          rejection_reason?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          name?: string
+          description?: string
+          creator_id?: string
+          difficulty?: Database["public"]["Enums"]["machine_difficulty"]
+          category?: Database["public"]["Enums"]["machine_category"]
+          status?: Database["public"]["Enums"]["machine_status"]
+          xp_reward?: number
+          vm_url?: string | null
+          docker_image?: string | null
+          instance_config?: Json | null
+          solve_count?: number
+          first_blood_user_id?: string | null
+          first_blood_at?: string | null
+          approved_by?: string | null
+          approved_at?: string | null
+          rejection_reason?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+      }
+      notifications: {
+        Row: {
+          id: string
+          user_id: string
+          title: string
+          message: string
+          type: Database["public"]["Enums"]["notification_type"]
+          is_read: boolean
+          metadata: Json | null
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          user_id: string
+          title: string
+          message: string
+          type?: Database["public"]["Enums"]["notification_type"]
+          is_read?: boolean
+          metadata?: Json | null
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          user_id?: string
+          title?: string
+          message?: string
+          type?: Database["public"]["Enums"]["notification_type"]
+          is_read?: boolean
+          metadata?: Json | null
+          created_at?: string
+        }
+      }
+      profiles: {
+        Row: {
+          id: string
+          username: string
+          full_name: string | null
+          avatar_url: string | null
+          role: Database["public"]["Enums"]["user_role"]
+          total_xp: number
+          level: number
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id: string
+          username: string
+          full_name?: string | null
+          avatar_url?: string | null
+          role?: Database["public"]["Enums"]["user_role"]
+          total_xp?: number
+          level?: number
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          username?: string
+          full_name?: string | null
+          avatar_url?: string | null
+          role?: Database["public"]["Enums"]["user_role"]
+          total_xp?: number
+          level?: number
+          created_at?: string
+          updated_at?: string
+        }
+      }
+      submissions: {
+        Row: {
+          id: string
+          user_id: string
+          machine_id: string
+          flag_id: string
+          submitted_flag: string
+          is_correct: boolean
+          xp_awarded: number
+          submitted_at: string
+        }
+        Insert: {
+          id?: string
+          user_id: string
+          machine_id: string
+          flag_id: string
+          submitted_flag: string
+          is_correct?: boolean
+          xp_awarded?: number
+          submitted_at?: string
+        }
+        Update: {
+          id?: string
+          user_id?: string
+          machine_id?: string
+          flag_id?: string
+          submitted_flag?: string
+          is_correct?: boolean
+          xp_awarded?: number
+          submitted_at?: string
+        }
+      }
+      user_progress: {
+        Row: {
+          id: string
+          user_id: string
+          category: Database["public"]["Enums"]["machine_category"]
+          xp_earned: number
+          machines_solved: number
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          user_id: string
+          category: Database["public"]["Enums"]["machine_category"]
+          xp_earned?: number
+          machines_solved?: number
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          user_id?: string
+          category?: Database["public"]["Enums"]["machine_category"]
+          xp_earned?: number
+          machines_solved?: number
+          created_at?: string
+          updated_at?: string
+        }
+      }
     }
     Views: {
       [_ in never]: never
@@ -23,7 +312,12 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      flag_type: "static" | "dynamic" | "regex"
+      machine_category: "web" | "pwn" | "crypto" | "reverse" | "forensics" | "misc"
+      machine_difficulty: "beginner" | "easy" | "medium" | "hard" | "expert"
+      machine_status: "draft" | "pending" | "approved" | "rejected" | "retired"
+      notification_type: "info" | "success" | "warning" | "achievement"
+      user_role: "user" | "creator" | "moderator" | "admin"
     }
     CompositeTypes: {
       [_ in never]: never
