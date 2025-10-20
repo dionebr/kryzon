@@ -125,11 +125,17 @@ The platform requires several Supabase tables and functions. Check the `supabase
 
 ## Contributing
 
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+We welcome contributions! Please read our [Contributing Guide](docs/CONTRIBUTING.md) for details on our code of conduct and the process for submitting pull requests.
+
+## Security
+
+For security concerns, please review our [Security Policy](docs/SECURITY.md) and report vulnerabilities responsibly.
+
+## Documentation
+
+- [Contributing Guide](docs/CONTRIBUTING.md) - How to contribute to the project
+- [Security Policy](docs/SECURITY.md) - Security guidelines and reporting
+- [Development Phases](docs/FASES_5_6_README.md) - Detailed implementation documentation (Portuguese)
 
 ## License
 
