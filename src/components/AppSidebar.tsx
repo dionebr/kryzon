@@ -33,7 +33,7 @@ const ctfItems = [
 
 // Itens administrativos (só aparecem para admins)
 const adminItems = [
-  { title: "Dashboard Admin", url: "/admin", icon: Settings },
+  { title: "Painel Admin", url: "/admin", icon: Settings },
 ];
 
 export function AppSidebar() {
