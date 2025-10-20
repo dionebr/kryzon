@@ -15,6 +15,7 @@ import MachineCreate from "./pages/MachineCreate";
 import MySubmissions from "./pages/MySubmissions";
 import Rankings from "./pages/Rankings";
 import UserProfile from "./pages/UserProfile";
+import UserSettings from "./pages/UserSettings";
 import Challenges from "./pages/Challenges";
 import Auth from "./pages/Auth";
 import NotFound from "./pages/NotFound";
@@ -98,6 +99,7 @@ const App = () => (
                         <Route path="/machines/my-submissions" element={<MySubmissions />} />
                         <Route path="/rankings" element={<Rankings />} />
                         <Route path="/profile/:username" element={<UserProfile />} />
+                        <Route path="/settings" element={<UserSettings />} />
                         <Route path="/challenges" element={<Challenges />} />
                         
                         {/* Admin Routes */}

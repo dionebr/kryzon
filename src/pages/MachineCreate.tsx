@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { ArrowLeft, ArrowRight, Upload, Plus, Trash2 } from "lucide-react";
+import { ArrowLeft, ArrowRight, Upload, Plus, Trash2, Loader2 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -10,10 +10,12 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { toast } from "sonner";
+import { MachineService } from "@/services/machineService";
 
 export default function MachineCreate() {
   const navigate = useNavigate();
   const [step, setStep] = useState(1);
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     description: "",
@@ -51,9 +53,91 @@ export default function MachineCreate() {
     });
   };
 
-  const handleSubmit = () => {
-    toast.success("Máquina enviada para revisão!");
-    navigate("/machines/my-submissions");
+  const validateForm = () => {
+    if (!formData.name.trim()) {
+      toast.error("Nome da máquina é obrigatório");
+      return false;
+    }
+    if (!formData.description.trim()) {
+      toast.error("Descrição é obrigatória");
+      return false;
+    }
+    if (!formData.difficulty) {
+      toast.error("Selecione a dificuldade");
+      return false;
+    }
+    if (!formData.category) {
+      toast.error("Selecione a categoria");
+      return false;
+    }
+    if (!formData.xp || parseInt(formData.xp) <= 0) {
+      toast.error("XP deve ser um número maior que 0");
+      return false;
+    }
+    if (formData.flags.length === 0 || !formData.flags.some(f => f.value.trim())) {
+      toast.error("Pelo menos uma flag é obrigatória");
+      return false;
+    }
+    return true;
+  };
+
+  const handleSubmit = async () => {
+    if (!validateForm()) {
+      return;
+    }
+
+    setLoading(true);
+    
+    try {
+      // Preparar dados para o serviço
+      const machineData = {
+        name: formData.name.trim(),
+        description: formData.description.trim(),
+        difficulty: formData.difficulty,
+        category: formData.category,
+        xp: parseInt(formData.xp),
+        flags: formData.flags
+          .filter(f => f.value.trim())
+          .map(f => ({
+            name: `Flag`,
+            value: f.value.trim(),
+            points: parseInt(f.points) || 10,
+            description: ""
+          })),
+        hints: formData.hints.trim()
+      };
+
+      // Criar máquina
+      const result = await MachineService.createMachine(machineData);
+      
+      if (!result.success) {
+        toast.error(result.error || "Erro ao criar máquina");
+        return;
+      }
+
+      // Upload de arquivos se houver
+      if (formData.vmFile && result.machineId) {
+        const uploadResult = await MachineService.uploadMachineFile(result.machineId, {
+          file: formData.vmFile,
+          type: 'vm',
+          description: 'VM principal da máquina'
+        });
+
+        if (!uploadResult.success) {
+          console.warn("Erro no upload do arquivo:", uploadResult.error);
+          toast.warning("Máquina criada, mas houve erro no upload do arquivo");
+        }
+      }
+
+      toast.success("Máquina enviada para revisão com sucesso!");
+      navigate("/machines/my-submissions");
+      
+    } catch (error) {
+      console.error("Erro inesperado:", error);
+      toast.error("Erro interno do sistema");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -325,7 +409,16 @@ export default function MachineCreate() {
                 <ArrowRight className="w-4 h-4 ml-2" />
               </Button>
             ) : (
-              <Button onClick={handleSubmit}>Enviar para Revisão</Button>
+              <Button onClick={handleSubmit} disabled={loading}>
+                {loading ? (
+                  <>
+                    <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                    Enviando...
+                  </>
+                ) : (
+                  "Enviar para Revisão"
+                )}
+              </Button>
             )}
           </div>
         </CardContent>
