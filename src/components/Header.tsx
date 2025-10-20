@@ -84,6 +84,18 @@ export function Header() {
           <SidebarTrigger />
         </div>
 
+        {/* Logo centralizado */}
+        <div className="absolute left-1/2 transform -translate-x-1/2 flex items-center">
+          <img 
+            src="/logo.svg" 
+            alt="Kryzon CTF" 
+            className="h-8 w-8"
+          />
+          <span className="ml-2 text-xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+            Kryzon
+          </span>
+        </div>
+
         <div className="flex items-center gap-4">
           <LanguageToggle />
           
